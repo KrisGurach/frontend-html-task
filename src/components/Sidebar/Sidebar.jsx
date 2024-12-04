@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
 import classnames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../assets/logo.png";
@@ -11,11 +12,17 @@ const Sidebar = (props) => {
   const { color } = props;
   const currentTheme = color === "light" ? lightTheme : darkTheme;
 
+  const {pathname} = useLocation();
+  const navigate = useNavigate();
+
+  console.log(pathname);
+
   const [isOpened, setIsOpened] = useState(false);
   const containerClassnames = classnames("sidebar", { opened: isOpened });
 
   const goToRoute = (path) => {
     console.log(`going to "${path}"`);
+    navigate(path, { replace: true });
   };
 
   const toggleSidebar = () => {
@@ -38,6 +45,7 @@ const Sidebar = (props) => {
             <MenuItem
               theme={currentTheme}
               isopen={isOpened}
+              isactive={pathname === route.path ? true : undefined}
               key={route.title}
               onClick={() => {
                 goToRoute(route.path);

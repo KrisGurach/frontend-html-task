@@ -1,3 +1,5 @@
+// Константы вынесены в отдельный файл
+
 export const routes = [
     { title: 'Home', icon: 'fas-solid fa-house', path: '/' },
     { title: 'Sales', icon: 'chart-line', path: '/sales' },

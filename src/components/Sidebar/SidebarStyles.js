@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+// Для упрощения чтения jsx-файла я вынесла styled-component в отдельный файл, если стиль кода в компании предполагает объединенное написание, то файлы можно объединить
 
 const transition = css`
   transition: all 0.4s;
@@ -68,13 +69,14 @@ export const Menu = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
+    ${transform};
+    ${transition};
+
     &:hover {
       cursor: pointer;
       color: ${(props) => props.theme.hoverTextColor};
-      background-color: ${(props) => props.theme.hoverBackground};
+      background-color: ${(props) => props.theme.hoverBkg};
     }
-    ${transform};
-    ${transition}
   }
   margin-bottom: 10vh;
 `;
@@ -82,12 +84,19 @@ export const Menu = styled.div`
 export const MenuItem = styled.a`
   color: ${(props) => 
     props.isactive ? props.theme.activeTextColor : props.theme.textColor
-  }
+  };
+  background-color: ${(props) =>
+    props.isactive ? props.theme.activeBkgColor : props.theme.background};
+  border-radius: 8px;
   ${transform};
+
   &:hover {
-    cursor: pointer;
     color: ${(props) =>
       props.isactive ? props.theme.activeTextColor : props.theme.hoverTextColor};
+    background-color: ${(props) =>
+      props.isactive ? props.theme.activeBkgColor : props.theme.hoverBkgColor};
+    cursor: pointer;
+  }
 `;
 
 export const MenuTitle = styled.p`
