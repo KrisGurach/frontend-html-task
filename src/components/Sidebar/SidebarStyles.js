@@ -121,3 +121,18 @@ export const ToggleButton = styled.button`
   transition: transform 0.4s;
 `;
 
+export const ThemeToggleButton = styled.button`
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  color: ${(props) => props.theme.textColor};
+  transition: color 0.2s;
+
+  &:hover {
+    color: ${(props) => props.theme.hoverTextColor};
+  }
+`;

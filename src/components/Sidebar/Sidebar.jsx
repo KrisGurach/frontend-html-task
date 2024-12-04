@@ -6,17 +6,18 @@ import logo from "../../assets/logo.png";
 import PropTypes from "prop-types";
 import { bottomRoutes, routes } from "./routes";
 import { lightTheme, darkTheme } from "./theme";
-import { Container, Logo, Menu, MenuItem, MenuTitle, ToggleButton } from "./SidebarStyles";
+import { Container, Logo, Menu, MenuItem, MenuTitle, ToggleButton, ThemeToggleButton } from "./SidebarStyles";
 import { ThemeProvider } from "styled-components";
 
 const Sidebar = (props) => {
   const { color } = props;
-  const currentTheme = color === "light" ? lightTheme : darkTheme;
 
   const {pathname} = useLocation();
   const navigate = useNavigate();
 
   const [isOpened, setIsOpened] = useState(false);
+  const [isLightTheme, setIsLightTheme] = useState(color === "light");
+
   const containerClassnames = classnames("sidebar", { opened: isOpened });
 
   const goToRoute = (path) => {
@@ -28,9 +29,15 @@ const Sidebar = (props) => {
     setIsOpened((v) => !v);
   };
 
+  const toggleTheme = () => {
+    setIsLightTheme((prevTheme) => !prevTheme);
+  };
+
+  const currentThemeToUse = isLightTheme ? lightTheme : darkTheme;
+
   return (
     <div className={containerClassnames}>
-      <ThemeProvider theme={currentTheme}>
+      <ThemeProvider theme={currentThemeToUse}>
       <Container isopen={isOpened}>
         <Logo isopen={isOpened}>
           <img
@@ -83,6 +90,11 @@ const Sidebar = (props) => {
       >
         <FontAwesomeIcon icon={isOpened ? "angle-left" : "angle-right"} />
       </ToggleButton>
+
+    {/* Добавила кнопку переключения темы */}
+      <ThemeToggleButton onClick={toggleTheme}>
+        <FontAwesomeIcon icon={isLightTheme ? "sun" : "moon"} />
+      </ThemeToggleButton>
       </ThemeProvider>
     </div>
   );
