@@ -15,7 +15,9 @@ const display = css`
     props.isopen ? "block" : "none"}
 `;
 
-export const Container = styled.div`
+export const Container = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isopen',
+})`
   width: 220px;
   height: 100vh;
   position: fixed;
@@ -38,7 +40,9 @@ export const Container = styled.div`
   }
 `;
 
-export const Logo = styled.div`
+export const Logo = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isopen',
+})`
   margin-left: 10px;
   margin-top: 5vh;
   margin-bottom: 10vh;
@@ -61,7 +65,9 @@ export const Logo = styled.div`
   }
 `;
 
-export const Menu = styled.div`
+export const Menu = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isopen',
+})`
   > * {
     width: ${(props) => (props.isopen ? "auto" : "20px")};
     margin: 8px;
@@ -81,7 +87,9 @@ export const Menu = styled.div`
   margin-bottom: 10vh;
 `;
 
-export const MenuItem = styled.a`
+export const MenuItem = styled.a.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isactive' && prop !== 'isopen',
+})`
   color: ${(props) => 
     props.isactive ? props.theme.activeTextColor : props.theme.textColor
   };
@@ -101,11 +109,15 @@ export const MenuItem = styled.a`
   }
 `;
 
-export const MenuTitle = styled.p`
+export const MenuTitle = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isopen',
+})`
   ${display}
 `;
 
-export const ToggleButton = styled.button`
+export const ToggleButton = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isopen',
+})`
   position: absolute;
   width: 24px;
   height: 24px;

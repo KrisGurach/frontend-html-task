@@ -21,7 +21,6 @@ const Sidebar = (props) => {
   const containerClassnames = classnames("sidebar", { opened: isOpened });
 
   const goToRoute = (path) => {
-    console.log(`going to "${path}"`);
     navigate(path, { replace: true });
   };
 
