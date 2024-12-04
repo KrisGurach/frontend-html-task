@@ -88,7 +88,9 @@ export const MenuItem = styled.a`
   background-color: ${(props) =>
     props.isactive ? props.theme.activeBkgColor : props.theme.background};
   border-radius: 8px;
-  ${transform};
+  transform: ${(props) =>
+    props.isopen ? "translateX(0)" : "translateX(165px)"};
+  transition: opacity 0.9s;
 
   &:hover {
     color: ${(props) =>
@@ -101,5 +103,21 @@ export const MenuItem = styled.a`
 
 export const MenuTitle = styled.p`
   ${display}
+`;
+
+export const ToggleButton = styled.button`
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 48px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) =>
+    props.isopen ? props.theme.btnActiveBkgColor : props.theme.btnBkgColor};
+  transform: ${(props) =>
+    props.isopen ? "translateX(195px)" : "translateX(50px)"};
+  transition: transform 0.4s;
 `;
 

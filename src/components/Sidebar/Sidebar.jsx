@@ -6,7 +6,8 @@ import logo from "../../assets/logo.png";
 import PropTypes from "prop-types";
 import { bottomRoutes, routes } from "./routes";
 import { lightTheme, darkTheme } from "./theme";
-import { Container, Logo, Menu, MenuItem, MenuTitle } from "./SidebarStyles";
+import { Container, Logo, Menu, MenuItem, MenuTitle, ToggleButton } from "./SidebarStyles";
+import { ThemeProvider } from "styled-components";
 
 const Sidebar = (props) => {
   const { color } = props;
@@ -14,8 +15,6 @@ const Sidebar = (props) => {
 
   const {pathname} = useLocation();
   const navigate = useNavigate();
-
-  console.log(pathname);
 
   const [isOpened, setIsOpened] = useState(false);
   const containerClassnames = classnames("sidebar", { opened: isOpened });
@@ -31,8 +30,9 @@ const Sidebar = (props) => {
 
   return (
     <div className={containerClassnames}>
-      <Container theme={currentTheme} isopen={isOpened}>
-        <Logo theme={currentTheme} isopen={isOpened}>
+      <ThemeProvider theme={currentTheme}>
+      <Container isopen={isOpened}>
+        <Logo isopen={isOpened}>
           <img
             src={logo}
             alt="TensorFlow logo"
@@ -40,45 +40,50 @@ const Sidebar = (props) => {
           <span>TensorFlow</span>
         </Logo>
 
-        <Menu theme={currentTheme} isopen={isOpened}>
+        <Menu isopen={isOpened}>
           {routes.map((route) => (
             <MenuItem
-              theme={currentTheme}
               isopen={isOpened}
-              isactive={pathname === route.path ? true : undefined}
+              isactive={pathname === route.path}
               key={route.title}
               onClick={() => {
                 goToRoute(route.path);
               }}
             >
               <FontAwesomeIcon icon={route.icon} />
-              <MenuTitle theme={currentTheme} isopen={isOpened}>
+              <MenuTitle isopen={isOpened}>
                 {route.title}
               </MenuTitle>
             </MenuItem>
           ))}
         </Menu>
 
-        <Menu theme={currentTheme} isopen={isOpened}>
+        <Menu isopen={isOpened}>
           {bottomRoutes.map((route) => (
-            <div
+            <MenuItem
+              isopen={isOpened}
+              isactive={pathname === route.path}
               key={route.title}
               onClick={() => {
                 goToRoute(route.path);
               }}
             >
               <FontAwesomeIcon icon={route.icon} />
-              <MenuTitle theme={currentTheme} isopen={isOpened}>
+              <MenuTitle isopen={isOpened}>
                 {route.title}
               </MenuTitle>
-            </div>
+            </MenuItem>
           ))}
         </Menu>
       </Container>
 
-      <div onClick={toggleSidebar}>
+      <ToggleButton 
+        onClick={toggleSidebar}
+        isopen={isOpened}
+      >
         <FontAwesomeIcon icon={isOpened ? "angle-left" : "angle-right"} />
-      </div>
+      </ToggleButton>
+      </ThemeProvider>
     </div>
   );
 };
